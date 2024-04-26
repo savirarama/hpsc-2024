@@ -43,15 +43,16 @@ int main() {
       //Calculate (r * r * r)^-1
       __m512 r_recp_cb = _mm512_mul_ps(_mm512_mul_ps(r_recp,r_recp),r_recp); 
       //Calculate rx * m[j] / (r * r * r) with mask
-      __m512 fxtvec = _mm512_mask_blend_ps(mask,_mm512_mul_ps(_mm512_mul_ps(rx,mjvec),r_recp_cb),zeros);
+      __m512 fxtvec = _mm512_sub_ps(zeros,_mm512_mask_blend_ps(mask,_mm512_mul_ps(_mm512_mul_ps(rx,mjvec),r_recp_cb),zeros));
       //Calculate ry * m[j] / (r * r * r) with mask
-      __m512 fytvec = _mm512_mask_blend_ps(mask,_mm512_mul_ps(_mm512_mul_ps(ry,mjvec),r_recp_cb),zeros);
+      __m512 fytvec = _mm512_sub_ps(zeros,_mm512_mask_blend_ps(mask,_mm512_mul_ps(_mm512_mul_ps(ry,mjvec),r_recp_cb),zeros));
       _mm512_store_ps(fxt,fxtvec);
       _mm512_store_ps(fyt,fytvec);
-      fx[i]-=fxt[j];
-      fy[i]-=fyt[j];
     }
-    printf("%d %g %g\n",i,fx[i],fy[i]);
+    __m512 fxtvec = _mm512_load_ps(fxt);
+    __m512 fytvec = _mm512_load_ps(fyt);
+    fx[i]=_mm512_reduce_add_ps(fxtvec);
+    fy[i]=_mm512_reduce_add_ps(fytvec);
 
   }
 }
