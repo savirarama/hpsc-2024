@@ -32,7 +32,7 @@ int main(int argc, char** argv) {
     Body buffer[N/size];
     //copy the content of jbody to buffer
     for(int i=0; i<N/size; i++) {
-      buffer[i] = jbody=i;
+      buffer[i] = jbody[i];
       }
     MPI_Win_fence(0, win);
     MPI_Put(buffer, N/size, MPI_BODY, send_to, 0, N/size, MPI_BODY, win);
