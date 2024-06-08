@@ -156,6 +156,7 @@ int main (){
                 vfile << "\n";
                 pfile << "\n";
         
+            }
         }
     }
     ufile.close();
