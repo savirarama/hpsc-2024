@@ -111,10 +111,8 @@ int main (){
     dim3 threadsPerBlock(16, 16); 
     dim3 blocksPerGrid((NX + threadsPerBlock.x - 1) / threadsPerBlock.x, (NY + threadsPerBlock.y - 1) / threadsPerBlock.y);
 
-    // DISABLE WRITE TO FILE
-    // std::ofstream ufile("u.dat");
-    // std::ofstream vfile("v.dat");
-    // std::ofstream pfile("p.dat");
+    
+    std::ofstream ufile("u.dat"), vfile("v.dat"), pfile("p.dat");
 
     for (int n=0; n<NT; n++) {
         //compute b
@@ -146,25 +144,23 @@ int main (){
 
         computeBoundary<<<blocksPerGrid, threadsPerBlock>>>(u, v);
     
-        //DISABLE WRITE TO FILE
-        // if (n % 10 == 0) {
-        // for (int j=0; j<NY; j++)
-        //     for (int i=0; i<NX; i++)
-        //     ufile << u[j][i] << " ";
-        // ufile << "\n";
-        // for (int j=0; j<NY; j++)
-        //     for (int i=0; i<NX; i++)
-        //     vfile << v[j][i] << " ";
-        // vfile << "\n";
-        // for (int j=0; j<NY; j++)
-        //     for (int i=0; i<NX; i++)
-        //     pfile << p[j][i] << " ";
-        // pfile << "\n";
-        //}
+       
+        if (n % 10 == 0) {
+            for (int j = 0; j < NY; j++) {
+                for (int i = 0; i < NX; i++) {
+                    ufile << u[j * NX + i] << " ";
+                    vfile << v[j * NX + i] << " ";
+                    pfile << p[j * NX + i] << " ";
+                }
+                ufile << "\n";
+                vfile << "\n";
+                pfile << "\n";
+        
+        }
     }
-    // ufile.close();
-    // vfile.close();
-    // pfile.close();
+    ufile.close();
+    vfile.close();
+    pfile.close();
 
     
 
