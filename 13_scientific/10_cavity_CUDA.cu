@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <fstream>
 
 #define NX  (41)
 #define NY  (41)
