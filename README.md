@@ -1,3 +1,14 @@
+# High-Performance Scientific Computing
+This project was developed as part of my High-Performance Scientific Computing class.
+It explores optimization techniques across different parallel programming models and hardware accelerators.
+
+## 🚀 Key Highlights
+- Implemented performance optimizations with:
+  - OpenMPI (distributed memory)
+  - SIMD (vectorization)
+  - OpenACC (GPU acceleration with directives)
+  - CUDA (low-level GPU programming)
+  
 # hpc_lecture
 
 学籍番号：24M30871
